@@ -75,11 +75,18 @@ Array.prototype.myEvery = function(callback) {
 
 /** (Li) Without using the native “Array.prototype.reduce” method of JavaScript, compose a function titled “myReduce” 
     that will take in an array of elements and execute a callback function on each of those elements. */
-Array.prototype.myReduce = function(callback, currentValue) {
-    for (let i=0; i<this.length; i++) {
-        currentValue = callback(currentValue, this[i], i, this);
-      }
-      return currentValue;
+Array.prototype.myReduce = function(callback, initialValue) {
+    var num = 0;
+    if (initialValue != undefined) {
+        total = initialValue;
+    } else {
+        total = this[0];
+        num = 1;
+    } 
+    for(let i = num ; i < this.length ; i++) {
+        total = callback(total,this[i],i,this);    
+    }
+    return total;
 };
 
 /** (Jackie) Without using the native “Array.prototype.includes” method of JavaScript, compose a function titled 
@@ -234,6 +241,43 @@ console.log("---");
 console.log("[TEST] grabKeys:");
 const key_value = {a:10, b:5, c:2};
 console.log(grabKeys(key_value));
+console.log("---");
+
+//test for myFilter : DONE
+console.log("[TEST] myFilter:");
+const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
+const result = words.myFilter(word => word.length > 6);
+console.log(result);
+// expected output: Array ["exuberant", "destruction", "present"]
+console.log("---");
+
+//test for myReduce : DONE
+console.log("[TEST] myReduce:");
+const array1 = [1, 2, 3, 4];
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+console.log(array1.myReduce(reducer));
+// expected output: 10
+console.log(array1.myReduce(reducer, 5));
+// expected output: 15
+console.log("---");
+
+//test for myPush : DONE
+console.log("[TEST] myPush:");
+const animals = ['pigs', 'goats', 'sheep'];
+const count = animals.myPush('cows');
+console.log(count);
+// expected output: 4
+console.log(animals);
+// expected output: Array ["pigs", "goats", "sheep", "cows"]
+animals.myPush('chickens', 'cats', 'dogs');
+console.log(animals);
+// expected output: Array ["pigs", "goats", "sheep", "cows", "chickens", "cats", "dogs"]
+console.log("---");
+
+//test for grabValue : DONE
+console.log("[TEST] grabValue:");
+const keyvalue = {a:10, b:5, c:2};
+console.log(grabValues(keyvalue));
 console.log("---");
 
 console.log("All tests are complete! ( ᐛ )و")
