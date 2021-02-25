@@ -171,13 +171,13 @@ function grabKeys(obj)
 /** Without using the native “Object.values()” method of JavaScript, compose a function titled “grabValues” 
     that will take in an object and return all of the values of the key:value pairs of that object. */
 
-Object.grabvalues = function(callback){
-        let newArray = []
-        for(let items in callback){
-          newArray.push(callback[items]);
-        }
-        return newArray;
-      };
+function grabValues(callback){
+     let newArray = []
+     for(let items in callback){
+       newArray.push(callback[items]);
+     }
+     return newArray;
+ };
 
 /** -------------------------------------------------------------
     TESTING
