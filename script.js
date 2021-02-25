@@ -45,16 +45,25 @@ Array.prototype.myFilter = function(callback) {};
     that will take in an array of elements and execute a callback function on each of those elements. */
 Array.prototype.mySome = function(callback) {
     var bool = new Boolean(false);
-    for (let i = 0; i < this.length; i++) {
-
-    }
+    for (var i = 0; i < this.length; i++) {
+        if(callback(this[i])) {
+            bool = true;
+        };
+    };
+    return bool.toString();
 };
 
 /** (Jackie) Without using the native “Array.prototype.every” method of JavaScript, compose a function titled “myEvery” 
     that will take in an array of elements and execute a callback function on each of those elements. */
-Array.prototype.myEvery = function(callback) 
-{
-}
+Array.prototype.myEvery = function(callback) {
+    var bool = new Boolean(true);
+    for (var i = 0; i < this.length; i++) {
+        if(callback(this[i]) == false) {
+            bool = false;
+        };
+    };
+    return bool.toString();
+};
 
 /** (Li) Without using the native “Array.prototype.reduce” method of JavaScript, compose a function titled “myReduce” 
     that will take in an array of elements and execute a callback function on each of those elements. */
@@ -63,7 +72,15 @@ Array.prototype.myReduce = function(callback) {};
 /** (Jackie) Without using the native “Array.prototype.includes” method of JavaScript, compose a function titled 
     “myIncludes” that will take in an array of elements and indicate whether or not a target element is 
     contained within the input array. This returns a boolean. */
-Array.prototype.myIncludes = function(callback) {};
+Array.prototype.myIncludes = function(callback) {
+    var bool = new Boolean(false);
+    for (var i = 0; i < this.length; i++) {
+        if(this[i] == callback) {
+            bool = true;
+        };
+    };
+    return bool.toString();
+};
 
 /** (Sumiya) Without using the native “Array.prototype.indexOf” method of JavaScript, compose a function titled 
     “myIndexOf” that will take in an array of elements and returns the index of the first encounter of a target 
@@ -151,10 +168,30 @@ console.log("---");
 
 //test mySome
 console.log("[TEST] mySome:");
-const arrSome = [1, 2, 3, 4, 5];
+const arrSome = [1, 3, 5];
 // checks whether an element is even
 const even = (element) => element % 2 === 0;
 console.log(arrSome.mySome(even));
+console.log("---");
+
+//test myEvery
+console.log("[TEST] myEvery:");
+const isBelowThreshold = (currentValue) => currentValue < 40;
+const arrEvery1 = [1, 30, 39, 29, 10, 13];
+console.log(arrEvery1.myEvery(isBelowThreshold));
+console.log("---");
+
+console.log("[TEST] myIncludes:");
+//test myIncludes
+const arrIncludes1 = [1, 2, 3];
+console.log(arrIncludes1.myIncludes(2));
+// expected output: true
+
+const arrIncludes2 = ['cat', 'dog', 'bat'];
+console.log(arrIncludes2.myIncludes('cat'));
+// expected output: true
+console.log(arrIncludes2.myIncludes('at'));
+// expected output: false
 console.log("---");
 
 //test for myIndexOf : DONE
@@ -172,7 +209,9 @@ console.log(myLastIndexOf(arr3, seekElement));
 console.log("---");
 
 //test for grabKeys : DONE
-console.log("[TEST] lastIndexOf:");
+console.log("[TEST] grabKeys:");
 const key_value = {a:10, b:5, c:2};
 console.log(grabKeys(key_value));
 console.log("---");
+
+console.log("All tests are complete! ( ᐛ )و")
