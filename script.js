@@ -38,7 +38,15 @@ Array.prototype.myMap = function (callback)
 
 /** (Li) Without using the native “Array.prototype.filter” method of JavaScript, compose a function titled “myFilter” 
     that will take in an array of elements and execute a callback function on each of those elements. */
-Array.prototype.myFilter = function(callback) {};
+Array.prototype.myFilter = function(callback) {
+    var newArray = [];
+    for(let i=0; i<this.length; i++){
+        if(callback(this[i])) {
+            newArray.push(this[i]);
+        }
+    }
+    return newArray;
+};
 
 /** (Jackie) (aka any())
     Without using the native “Array.prototype.some” method of JavaScript, compose a function titled “mySome” 
@@ -67,7 +75,12 @@ Array.prototype.myEvery = function(callback) {
 
 /** (Li) Without using the native “Array.prototype.reduce” method of JavaScript, compose a function titled “myReduce” 
     that will take in an array of elements and execute a callback function on each of those elements. */
-Array.prototype.myReduce = function(callback) {};
+Array.prototype.myReduce = function(callback, currentValue) {
+    for (let i=0; i<this.length; i++) {
+        currentValue = callback(currentValue, this[i], i, this);
+      }
+      return currentValue;
+};
 
 /** (Jackie) Without using the native “Array.prototype.includes” method of JavaScript, compose a function titled 
     “myIncludes” that will take in an array of elements and indicate whether or not a target element is 
@@ -106,7 +119,13 @@ function myIndexOf(arr, seekElement)
 /** (Li) Without using the native “Array.prototype.push” method of JavaScript, compose a function titled “myPush” 
     that will take in an array of elements as well as an elementToAdd and append that element to the end of the 
     array. */
-Array.prototype.myPush = function(callback) {};
+Array.prototype.myPush = function() {
+    var old = this.length;
+    for(var i = old ; i < old + arguments.length ; i++){
+        this[i] = arguments[i - old];
+    }
+    return this.length;
+};
 
 /** (Sumiya) Without using the native “Array.prototype.lastIndexOf” method of JavaScript, compose a function titled 
     “myLastIndexOf” that will take in an array of elements and returns the index of the last encounter of a 
@@ -144,15 +163,18 @@ function grabKeys(obj)
 /** (Li) Object.values() */
 /** Without using the native “Object.values()” method of JavaScript, compose a function titled “grabValues” 
     that will take in an object and return all of the values of the key:value pairs of that object. */
-Array.prototype.grabValues = function(callback)
-{
 
-}
+Object.grabvalues = function(callback){
+        let newArray = []
+        for(let items in callback){
+          newArray.push(callback[items]);
+        }
+        return newArray;
+      };
 
 /** -------------------------------------------------------------
     TESTING
  -------------------------------------------------------------- */
-
  //test for myEach
 console.log("[TEST] myEach:");
 const arr = [1, 2, 3, 4]
