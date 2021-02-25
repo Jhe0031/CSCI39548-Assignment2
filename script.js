@@ -20,7 +20,21 @@ Array.prototype.myEach = function (callback) {
 
 /** (Sumiya) Without using the native “Array.prototype.map” method of JavaScript, compose a function titled “myMap” that 
     will take in an array of elements and execute a callback function on each of those elements. */
-Array.prototype.myMap = function (callback) {};
+Array.prototype.myMap = function (callback)
+{
+    //creates an array
+    let newArray = [];
+    //let x hold the length
+    let x = this.length;
+    //for loop for the array and do the function
+    for (let i = 0; i < x; i++)
+    {
+        let counter = callback(this[i]);
+        newArray.push(counter);
+    }
+    //return the new array
+    return newArray;
+}
 
 /** (Li) Without using the native “Array.prototype.filter” method of JavaScript, compose a function titled “myFilter” 
     that will take in an array of elements and execute a callback function on each of those elements. */
@@ -37,11 +51,27 @@ Array.prototype.myFilter = function(callback) {
 /** (Jackie) (aka any())
     Without using the native “Array.prototype.some” method of JavaScript, compose a function titled “mySome” 
     that will take in an array of elements and execute a callback function on each of those elements. */
-Array.prototype.mySome = function(callback) {};
+Array.prototype.mySome = function(callback) {
+    var bool = new Boolean(false);
+    for (var i = 0; i < this.length; i++) {
+        if(callback(this[i])) {
+            bool = true;
+        };
+    };
+    return bool.toString();
+};
 
-/** (Sumiya) Without using the native “Array.prototype.every” method of JavaScript, compose a function titled “myEvery” 
+/** (Jackie) Without using the native “Array.prototype.every” method of JavaScript, compose a function titled “myEvery” 
     that will take in an array of elements and execute a callback function on each of those elements. */
-Array.prototype.myEvery = function(callback) {};
+Array.prototype.myEvery = function(callback) {
+    var bool = new Boolean(true);
+    for (var i = 0; i < this.length; i++) {
+        if(callback(this[i]) == false) {
+            bool = false;
+        };
+    };
+    return bool.toString();
+};
 
 /** (Li) Without using the native “Array.prototype.reduce” method of JavaScript, compose a function titled “myReduce” 
     that will take in an array of elements and execute a callback function on each of those elements. */
@@ -55,12 +85,36 @@ Array.prototype.myReduce = function(callback, currentValue) {
 /** (Jackie) Without using the native “Array.prototype.includes” method of JavaScript, compose a function titled 
     “myIncludes” that will take in an array of elements and indicate whether or not a target element is 
     contained within the input array. This returns a boolean. */
-Array.prototype.myIncludes = function(callback) {};
+Array.prototype.myIncludes = function(callback) {
+    var bool = new Boolean(false);
+    for (var i = 0; i < this.length; i++) {
+        if(this[i] == callback) {
+            bool = true;
+        };
+    };
+    return bool.toString();
+};
 
 /** (Sumiya) Without using the native “Array.prototype.indexOf” method of JavaScript, compose a function titled 
     “myIndexOf” that will take in an array of elements and returns the index of the first encounter of a target 
     element (if it is found) or -1 if that element does not exist within the input array. */
-Array.prototype.myIndexOf = function(callback) {};
+function myIndexOf(arr, seekElement)
+{
+    //create variable to retain index = -1
+    var index = -1;
+    //for the length of the array loop this
+    for (var i = 0; i < arr.length; i++)
+    {
+        //if the element exists within the array, store the index of that array into index
+        if(arr[i] == seekElement)
+        {
+            index = i;
+            break;
+        }
+    }
+    //returns -1 if the element does not exist
+    return index;
+}
 
 /** (Li) Without using the native “Array.prototype.push” method of JavaScript, compose a function titled “myPush” 
     that will take in an array of elements as well as an elementToAdd and append that element to the end of the 
@@ -73,18 +127,43 @@ Array.prototype.myPush = function() {
     return this.length;
 };
 
-/** (Jackie) Without using the native “Array.prototype.lastIndexOf” method of JavaScript, compose a function titled 
+/** (Sumiya) Without using the native “Array.prototype.lastIndexOf” method of JavaScript, compose a function titled 
     “myLastIndexOf” that will take in an array of elements and returns the index of the last encounter of a 
     target element (if it is found) or -1 if that element does not exist within the input array. */
-Array.prototype.myLastIndexOf = function(callback) {};
+function myLastIndexOf(arr, seekElement) 
+{
+    //set index to -1 for false statement
+    var index = -1;
+    //for the duration of the loop seek the element's last iteration
+    //and print out the index
+    for (var i = 0; i < arr.length; i++)
+    {
+        if(arr[i] == seekElement)
+        {
+            index = i;
+        }
+    }
+    //if not found print index -1
+    return index;
+}
 
 /** (Sumiya) Object.keys() */
 /** Without using the native “Object.keys()” method of JavaScript, compose a function titled “grabKeys” that 
     will take in an object and return all of the keys of the key:value pairs of that object. */
-
+function grabKeys(obj)
+{
+    let arr = []; //array declaration
+    for (element in obj)
+    {
+        arr.push(element); //appends to array
+    }
+    //returns array keys
+    return arr;
+}
 /** (Li) Object.values() */
 /** Without using the native “Object.values()” method of JavaScript, compose a function titled “grabValues” 
     that will take in an object and return all of the values of the key:value pairs of that object. */
+
 Object.grabvalues = function(callback){
         let newArray = []
         for(let items in callback){
@@ -96,4 +175,65 @@ Object.grabvalues = function(callback){
 /** -------------------------------------------------------------
     TESTING
  -------------------------------------------------------------- */
+ //test for myEach
+console.log("[TEST] myEach:");
+const arr = [1, 2, 3, 4]
+arr.myEach((x) => console.log(x));
+console.log("---");
 
+//test myMap
+console.log("[TEST] myMap:");
+let arr1 = [1, 2, 3];
+arr1 = arr1.myMap(e=>e*2);
+console.log(arr1);
+console.log("---");
+
+//test mySome
+console.log("[TEST] mySome:");
+const arrSome = [1, 3, 5];
+// checks whether an element is even
+const even = (element) => element % 2 === 0;
+console.log(arrSome.mySome(even));
+console.log("---");
+
+//test myEvery
+console.log("[TEST] myEvery:");
+const isBelowThreshold = (currentValue) => currentValue < 40;
+const arrEvery1 = [1, 30, 39, 29, 10, 13];
+console.log(arrEvery1.myEvery(isBelowThreshold));
+console.log("---");
+
+console.log("[TEST] myIncludes:");
+//test myIncludes
+const arrIncludes1 = [1, 2, 3];
+console.log(arrIncludes1.myIncludes(2));
+// expected output: true
+
+const arrIncludes2 = ['cat', 'dog', 'bat'];
+console.log(arrIncludes2.myIncludes('cat'));
+// expected output: true
+console.log(arrIncludes2.myIncludes('at'));
+// expected output: false
+console.log("---");
+
+//test for myIndexOf : DONE
+console.log("[TEST] myIndexOf:");
+var arr2 = [1, 2, 3, 4, 5, 3];
+var seekElement = 3;
+console.log(myIndexOf(arr2, seekElement));
+console.log("---");
+
+//test for lastIndexOf : DONE
+console.log("[TEST] lastIndexOf:");
+var arr3 = [1, 2, 3, 4, 5, 6, 7, 8, 4];
+var seekElement = 4;
+console.log(myLastIndexOf(arr3, seekElement));
+console.log("---");
+
+//test for grabKeys : DONE
+console.log("[TEST] grabKeys:");
+const key_value = {a:10, b:5, c:2};
+console.log(grabKeys(key_value));
+console.log("---");
+
+console.log("All tests are complete! ( ᐛ )و")
