@@ -29,7 +29,12 @@ Array.prototype.myFilter = function(callback) {};
 /** (Jackie) (aka any())
     Without using the native “Array.prototype.some” method of JavaScript, compose a function titled “mySome” 
     that will take in an array of elements and execute a callback function on each of those elements. */
-Array.prototype.mySome = function(callback) {};
+Array.prototype.mySome = function(callback) {
+    var bool = new Boolean(false);
+    for (let i = 0; i < this.length; i++) {
+
+    }
+};
 
 /** (Sumiya) Without using the native “Array.prototype.every” method of JavaScript, compose a function titled “myEvery” 
     that will take in an array of elements and execute a callback function on each of those elements. */
@@ -72,5 +77,43 @@ Array.prototype.myLastIndexOf = function(callback) {};
     TESTING
  -------------------------------------------------------------- */
 
+ //test for myEach
+console.log("[TEST] myEach:");
 const arr = [1, 2, 3, 4]
 arr.myEach((x) => console.log(x));
+console.log("---");
+
+//test myMap
+console.log("[TEST] myMap:");
+let arr1 = [1, 2, 3];
+arr1 = arr1.myMap(e=>e*2);
+console.log(arr1);
+console.log("---");
+
+//test mySome
+console.log("[TEST] mySome:");
+const arrSome = [1, 2, 3, 4, 5];
+// checks whether an element is even
+const even = (element) => element % 2 === 0;
+console.log(arrSome.mySome(even));
+console.log("---");
+
+//test for myIndexOf : DONE
+console.log("[TEST] myIndexOf:");
+var arr2 = [1, 2, 3, 4, 5, 3];
+var seekElement = 3;
+console.log(myIndexOf(arr2, seekElement));
+console.log("---");
+
+//test for lastIndexOf : DONE
+console.log("[TEST] lastIndexOf:");
+var arr3 = [1, 2, 3, 4, 5, 6, 7, 8, 4];
+var seekElement = 4;
+console.log(myLastIndexOf(arr3, seekElement));
+console.log("---");
+
+//test for grabKeys : DONE
+console.log("[TEST] lastIndexOf:");
+const key_value = {a:10, b:5, c:2};
+console.log(grabKeys(key_value));
+console.log("---");
