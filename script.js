@@ -22,11 +22,17 @@ Array.prototype.myEach = function (callback) {
     will take in an array of elements and execute a callback function on each of those elements. */
 Array.prototype.myMap = function (callback)
 {
-    const newArray = [];
-    for (let i = 0; i < newArray.length; i++)
+    //creates an array
+    let newArray = [];
+    //let x hold the length
+    let x = this.length;
+    //for loop for the array and do the function
+    for (let i = 0; i < x; i++)
     {
-        callback(newArray[i], i, newArray)
+        let counter = callback(this[i]);
+        newArray.push(counter);
     }
+    //return the new array
     return newArray;
 }
 
@@ -130,6 +136,9 @@ const arr = [1, 2, 3, 4]
 arr.myEach((x) => console.log(x));
 
 //test myMap
+let arr1 = [1, 2, 3];
+arr1 = arr1.myMap(e=>e*2);
+console.log(arr1);
 
 //test for myIndexOf : DONE
 var arr2 = [1, 2, 3, 4, 5, 3];
